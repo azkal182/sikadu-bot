@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-API_TOKEN = os.getenv('API_TOKEN')
+API_TOKEN = '5817972119:AAFixN2CRXFsaXw25NVz41FERmLUaSNSPY4'
 bot = telebot.TeleBot(API_TOKEN)
 
 user_dict = {}
