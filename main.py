@@ -3,14 +3,16 @@ from telebot import types
 from bin.sikadu import Sikadu
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
-#from dotenv import load_dotenv
-
-#load_dotenv()
 
 
 API_TOKEN = '5817972119:AAFixN2CRXFsaXw25NVz41FERmLUaSNSPY4'
 bot = telebot.TeleBot(API_TOKEN)
 
+
+
+#icon
+check = '\u2705'
+cross = '\u274C'
 user_dict = {}
 class Mahasiswa:
   def __int__(self, nim):
@@ -47,26 +49,34 @@ def process_nim_step(message):
     #21106011089
     data = req.search(nim)
     if ('AKTIFKAN' in data['account']['krs']):
-      krs = 'not active'
+      krs = 'not active' 
+      krs_icon = krs + ' ' + cross
     else:
-      krs = 'active'
+      krs = 'active' 
+      krs_icon = krs + ' ' + check
     
     if ('AKTIFKAN' in data['account']['uas']):
-      uas = 'not active'
+      uas = 'not active' 
+      uas_icon = uas + ' ' + cross
     else:
       uas = 'active'
+      uas_icon = uas + ' ' + check
     
     if ('AKTIFKAN' in data['account']['uts']):
       uts = 'not active'
+      uts_icon = uts + ' ' + cross
     else:
       uts = 'active'
+      uts_icon = uts + ' ' + check
 
     if ('AKTIFKAN'in data['account']['sikadu']):
       sikadu = 'not active'
+      sikadu_icon = sikadu + ' ' + cross
     else:
       sikadu = 'active'
+      sikadu_icon = sikadu + ' ' + check
 
-    msg = bot.send_message(message.chat.id, 'DATA MAHASISWA UNWAHAS\n\n' + 'NAMA : ' + data['name'] + '\nNIM : ' + data['nim'] + '\nKELAS : ' + data['kelas'] + '\nANGKATAN : ' + data['angkatan'] + '\nIP LALU : ' + data['ip_lalu'] + '\n\nSTATUS\n\n' + 'ISI KRS : ' + krs + '\nUAS : ' + uas + '\nUTS : ' + uts + '\nAKUN SIKADU : ' + sikadu, reply_markup=gen_markup_account(data['nim'],krs, uas, uts, sikadu))
+    msg = bot.send_message(message.chat.id, 'DATA MAHASISWA UNWAHAS\n\n' + 'NAMA : ' + data['name'] + '\nNIM : ' + data['nim'] + '\nKELAS : ' + data['kelas'] + '\nANGKATAN : ' + data['angkatan'] + '\nIP LALU : ' + data['ip_lalu'] + '\n\nPROFIL\n\n' + 'ALAMAT : ' + data['profile']['address'] + '\nNO TELEPON : ' + data['profile']['phone'] + '\nKTP : ' + data['profile']['ktp'] + '\n\nSTATUS\n\n' + 'ISI KRS : ' + krs_icon+ '\nUAS : ' + uas_icon + '\nUTS : ' + uts_icon + '\nAKUN SIKADU : ' + sikadu_icon, reply_markup=gen_markup_account(data['nim'],krs, uas, uts, sikadu))
   except Exception as e:
     bot.reply_to(message, 'oooops')
 
