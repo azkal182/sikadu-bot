@@ -3,9 +3,9 @@ from telebot import types
 from bin.sikadu import Sikadu
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv()
+#load_dotenv()
 
 
 API_TOKEN = '5817972119:AAFixN2CRXFsaXw25NVz41FERmLUaSNSPY4'
